@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Game View Controller-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="CompletedRainbowRun" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="maK-i9-Uhn"/>
+                        <viewControllerLayoutGuide type="bottom" id="khH-OB-KpY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYb-pm-b0A" customClass="GADBannerView">
+                                <rect key="frame" x="140" y="550" width="320" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="40C-p6-bAL"/>
+                                    <constraint firstAttribute="height" constant="50" id="9el-x3-hxa"/>
+                                    <constraint firstAttribute="height" constant="100" id="D6L-ce-SzT"/>
+                                    <constraint firstAttribute="width" constant="320" id="I80-95-RP8"/>
+                                    <constraint firstAttribute="width" constant="320" id="L55-7I-YCL"/>
+                                    <constraint firstAttribute="height" constant="50" id="Xpy-hw-SNr"/>
+                                    <constraint firstAttribute="width" constant="640" id="ai3-K5-3Ff"/>
+                                    <constraint firstAttribute="width" constant="320" id="jao-hB-LcN"/>
+                                    <constraint firstAttribute="width" secondItem="zYb-pm-b0A" secondAttribute="height" multiplier="32:5" id="pYO-tx-bgO"/>
+                                    <constraint firstAttribute="width" secondItem="zYb-pm-b0A" secondAttribute="height" multiplier="32:5" id="yJA-Qm-TVP"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="40C-p6-bAL"/>
+                                        <exclude reference="9el-x3-hxa"/>
+                                        <exclude reference="D6L-ce-SzT"/>
+                                        <exclude reference="I80-95-RP8"/>
+                                        <exclude reference="L55-7I-YCL"/>
+                                        <exclude reference="ai3-K5-3Ff"/>
+                                        <exclude reference="pYO-tx-bgO"/>
+                                        <exclude reference="yJA-Qm-TVP"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zYb-pm-b0A" firstAttribute="top" secondItem="maK-i9-Uhn" secondAttribute="bottom" constant="530" id="HIj-R2-yec"/>
+                            <constraint firstItem="zYb-pm-b0A" firstAttribute="bottom" secondItem="khH-OB-KpY" secondAttribute="top" id="IfK-yk-4sF"/>
+                            <constraint firstItem="zYb-pm-b0A" firstAttribute="bottom" secondItem="khH-OB-KpY" secondAttribute="top" id="NDO-ox-JdU"/>
+                            <constraint firstAttribute="centerY" secondItem="zYb-pm-b0A" secondAttribute="centerY" constant="-275" id="P8A-xF-mCT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zYb-pm-b0A" secondAttribute="trailing" constant="-36" id="R8W-mE-Jbo"/>
+                            <constraint firstItem="zYb-pm-b0A" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="Rq2-5Q-HEt"/>
+                            <constraint firstItem="zYb-pm-b0A" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="Ysk-UE-0re"/>
+                            <constraint firstItem="zYb-pm-b0A" firstAttribute="top" secondItem="maK-i9-Uhn" secondAttribute="bottom" constant="480" id="ewZ-Cw-u56"/>
+                            <constraint firstItem="zYb-pm-b0A" firstAttribute="top" secondItem="maK-i9-Uhn" secondAttribute="bottom" constant="530" id="fK1-f7-0Wu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zYb-pm-b0A" secondAttribute="trailing" constant="124" id="hCq-U2-jS4"/>
+                            <constraint firstAttribute="centerY" secondItem="zYb-pm-b0A" secondAttribute="centerY" constant="-250" id="ze1-n5-aci"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="HIj-R2-yec"/>
+                                <exclude reference="NDO-ox-JdU"/>
+                                <exclude reference="P8A-xF-mCT"/>
+                                <exclude reference="R8W-mE-Jbo"/>
+                                <exclude reference="Ysk-UE-0re"/>
+                                <exclude reference="ewZ-Cw-u56"/>
+                                <exclude reference="fK1-f7-0Wu"/>
+                                <exclude reference="hCq-U2-jS4"/>
+                                <exclude reference="ze1-n5-aci"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="bannerView" destination="zYb-pm-b0A" id="9qw-dR-ajt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="295" y="275"/>
+        </scene>
+    </scenes>
+</document>
