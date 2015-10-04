@@ -70,17 +70,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
     }
     
     
-    func createAndLoadAd() -> GADInterstitial {
-        var ad = GADInterstitial()
-        ad.adUnitID = "ca-app-pub-3940256099942544/4411468910"
-        
-        var request = GADRequest()
-        
-        request.testDevices = ["2077ef9a63d2b398840261c8221a0c9b"]
-        ad.loadRequest(request)
-        
-        return ad
-    }
+    
     
     
     

@@ -18,6 +18,7 @@ import GoogleMobileAds
 
 
 
+
 class MainMenu: SKScene {
     
     var floor: SKSpriteNode // The floor image that is placed infront of the background
@@ -45,7 +46,7 @@ class MainMenu: SKScene {
     var highscoreBox : SKSpriteNode
     var addTransition = NSUserDefaults().integerForKey("add")
     
-    var interstitial: GADInterstitial!
+    var interstitialAd: GADInterstitial!
     
     
     override init(size: CGSize) {
@@ -357,15 +358,13 @@ class MainMenu: SKScene {
     
    
     func createAndLoadAd() -> GADInterstitial {
-        var ad = GADInterstitial()
-        ad.adUnitID = "ca-app-pub-3940256099942544/4411468910"
+        interstitialAd = GADInterstitial(adUnitID: "ca-app-pub-3703288349171008/9065448778")
         
         var request = GADRequest()
         
-        request.testDevices = ["2077ef9a63d2b398840261c8221a0c9b"]
-        ad.loadRequest(request)
-        
-        return ad
+        request.testDevices = [kGADSimulatorID]
+        interstitialAd!.loadRequest(request)
+        return interstitialAd!
     }
     
    
