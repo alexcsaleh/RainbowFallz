@@ -16,8 +16,8 @@ import GoogleMobileAds
 extension SKNode {
     class func unarchiveFromFile(file : NSString) -> SKNode? {
         if let path = NSBundle.mainBundle().pathForResource(file as String, ofType: "sks") {
-            var sceneData = NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe, error: nil)!
-            var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
+            let sceneData = try! NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe)
+            let archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
             
             archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
             let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as! GameScene
@@ -83,11 +83,11 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
         localPlayer.authenticateHandler = {(viewController, error) -> Void in
             
             if (viewController != nil) {
-                self.presentViewController(viewController, animated: true, completion: nil)
+                self.presentViewController(viewController!, animated: true, completion: nil)
             }
                 
             else {
-                println((GKLocalPlayer.localPlayer().authenticated))
+                print((GKLocalPlayer.localPlayer().authenticated))
             }
         }
         
@@ -96,14 +96,14 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
     
     //shows leaderboard screen
     func showLeader() {
-        var vc = self.view?.window?.rootViewController
-        var gc = GKGameCenterViewController()
+        let vc = self.view?.window?.rootViewController
+        let gc = GKGameCenterViewController()
         gc.gameCenterDelegate = self
         vc?.presentViewController(gc, animated: true, completion: nil)
     }
     
     //hides leaderboard screen
-    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!)
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController)
     {
         gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
         
@@ -113,11 +113,11 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
         return true
     }
     
-    override func supportedInterfaceOrientations() -> Int {
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return Int(UIInterfaceOrientationMask.AllButUpsideDown.rawValue)
+            return UIInterfaceOrientationMask.AllButUpsideDown
         } else {
-            return Int(UIInterfaceOrientationMask.All.rawValue)
+            return UIInterfaceOrientationMask.All
         }
     }
     

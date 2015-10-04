@@ -205,7 +205,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func didMoveToView(view: SKView) {
-        println("We are at the new scene!")
+        print("We are at the new scene!")
 
         
         
@@ -396,56 +396,56 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     func animateCloud() {
         
             var textureCloudArray = [cloudAnimation1, cloudAnimation2, cloudAnimation3, cloudAnimation4, cloudAnimation5]
-            var randomIndex = Int(arc4random_uniform(UInt32(textureCloudArray.count)))
+            let randomIndex = Int(arc4random_uniform(UInt32(textureCloudArray.count)))
             
             clouds.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(textureCloudArray[randomIndex], timePerFrame: 0.12)))
-            println("THIS ARRAY POSITION \(randomIndex)")
+            print("THIS ARRAY POSITION \(randomIndex)")
         
     }
     
     
     func loadAnimation1() {
-        var loadingLeftBlack = SKTextureAtlas(named: "CloudAnimation1")
+        let loadingLeftBlack = SKTextureAtlas(named: "CloudAnimation1")
         
         for i in 1...84 {
-            var textureName = "cloud\(i)"
-            var temp = loadingLeftBlack.textureNamed(textureName)
+            let textureName = "cloud\(i)"
+            let temp = loadingLeftBlack.textureNamed(textureName)
             cloudAnimation1.append(temp)
         }
     }
     func loadAnimation2() {
-        var loadingRightBlack = SKTextureAtlas(named: "CloudAnimation2")
+        let loadingRightBlack = SKTextureAtlas(named: "CloudAnimation2")
         
         for i in 1...84 {
-            var textureName = "cloud\(i)"
-            var temp = loadingRightBlack.textureNamed(textureName)
+            let textureName = "cloud\(i)"
+            let temp = loadingRightBlack.textureNamed(textureName)
             cloudAnimation2.append(temp)
         }
     }
     func loadAnimation3() {
-        var loadingNormalLeft = SKTextureAtlas(named: "CloudAnimation3")
+        let loadingNormalLeft = SKTextureAtlas(named: "CloudAnimation3")
         
         for i in 1...84 {
-            var textureName = "cloud\(i)"
-            var temp = loadingNormalLeft.textureNamed(textureName)
+            let textureName = "cloud\(i)"
+            let temp = loadingNormalLeft.textureNamed(textureName)
             cloudAnimation3.append(temp)
         }
     }
     func loadAnimation4() {
-        var loadingNormalRight = SKTextureAtlas(named: "CloudAnimation4")
+        let loadingNormalRight = SKTextureAtlas(named: "CloudAnimation4")
         
         for i in 1...84 {
-            var textureName = "cloud\(i)"
-            var temp = loadingNormalRight.textureNamed(textureName)
+            let textureName = "cloud\(i)"
+            let temp = loadingNormalRight.textureNamed(textureName)
             cloudAnimation4.append(temp)
         }
     }
     func loadAnimation5() {
-        var loadingNormalRight = SKTextureAtlas(named: "CloudAnimation5")
+        let loadingNormalRight = SKTextureAtlas(named: "CloudAnimation5")
         
         for i in 1...84 {
-            var textureName = "cloud\(i)"
-            var temp = loadingNormalRight.textureNamed(textureName)
+            let textureName = "cloud\(i)"
+            let temp = loadingNormalRight.textureNamed(textureName)
             cloudAnimation5.append(temp)
         }
     }
@@ -507,13 +507,18 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     func playMusicLoop(filename: String) {
         let url = NSBundle.mainBundle().URLForResource(filename, withExtension: nil)
         if(url == nil) {
-            println("could not find file: \(filename)")
+            print("could not find file: \(filename)")
             return
         }
         var error: NSError? = nil
-        musicLoop = AVAudioPlayer(contentsOfURL: url, error: &error)
+        do {
+            musicLoop = try AVAudioPlayer(contentsOfURL: url!)
+        } catch let error1 as NSError {
+            error = error1
+            musicLoop = nil
+        }
         if musicLoop == nil {
-            println("Could not create audio player: \(error!)")
+            print("Could not create audio player: \(error!)")
             return
         }
         
@@ -555,7 +560,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         let node1:SKNode = contact.bodyA.node!
         let node2:SKNode = contact.bodyB.node!
         
-        println("the \(contact.bodyA) is touching the \(contact.bodyB)")
+        print("the \(contact.bodyA) is touching the \(contact.bodyB)")
     }
     
     
@@ -568,9 +573,9 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     /* Whenever the hero touches a dark rainbow this takes place*/
     func death() {
         let randomIndex = Int(arc4random_uniform(UInt32(adScreenTransition.count)))
-        var defaults = NSUserDefaults()
-        var otherDefaults = NSUserDefaults()
-        var highscore = defaults.integerForKey("highscore")
+        let defaults = NSUserDefaults()
+        let otherDefaults = NSUserDefaults()
+        let highscore = defaults.integerForKey("highscore")
         
         if (score > highscore){
             defaults.setInteger(score, forKey: "highscore")
@@ -581,8 +586,8 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         var highscoreshow = defaults.integerForKey("highscore")
         var addTransition = otherDefaults.integerForKey("add")
         
-        var transitionFade = SKTransition.moveInWithDirection(SKTransitionDirection.Up, duration: 0.5)
-        var scene = MainMenu(size: self.size)
+        let transitionFade = SKTransition.moveInWithDirection(SKTransitionDirection.Up, duration: 0.5)
+        let scene = MainMenu(size: self.size)
         let skView = self.view as SKView!
         skView.ignoresSiblingOrder = true
         scene.scaleMode = .ResizeFill
@@ -596,11 +601,11 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func loadWaveMediumAnimation() {
-        var runningLeftAtlas = SKTextureAtlas(named: "waveMedium")
+        let runningLeftAtlas = SKTextureAtlas(named: "waveMedium")
         
         for i in 0...1 {
-            var textureName = "waveMedium\(i)"
-            var temp = runningLeftAtlas.textureNamed(textureName)
+            let textureName = "waveMedium\(i)"
+            let temp = runningLeftAtlas.textureNamed(textureName)
             waveTexturesMedium.append(temp)
         }
     }
@@ -615,20 +620,20 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     
     /* Looping the animation of the hero*/
     func loadHeroTextures() {
-        var runningLeftAtlas = SKTextureAtlas(named: "MovingLeft")
+        let runningLeftAtlas = SKTextureAtlas(named: "MovingLeft")
         
         for i in 1...9 {
-            var textureName = "left_\(i)"
-            var temp = runningLeftAtlas.textureNamed(textureName)
+            let textureName = "left_\(i)"
+            let temp = runningLeftAtlas.textureNamed(textureName)
             runningHeroTextures.append(temp)
         }
     }
     func loadHeroTexturesIphone6P() {
-        var runningLeftAtlas = SKTextureAtlas(named: "MovingLeftOnIphone6Plus")
+        let runningLeftAtlas = SKTextureAtlas(named: "MovingLeftOnIphone6Plus")
         
         for i in 1...9 {
-            var textureName = "walkleft_\(i)"
-            var temp = runningLeftAtlas.textureNamed(textureName)
+            let textureName = "walkleft_\(i)"
+            let temp = runningLeftAtlas.textureNamed(textureName)
             runningHeroTexturesIphone6Plus.append(temp)
         }
     }
@@ -642,10 +647,10 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func loadHeroDeath() {
-        var runningLeftAtlas = SKTextureAtlas(named: "DeathAnimation")
+        let runningLeftAtlas = SKTextureAtlas(named: "DeathAnimation")
         for i in 0...24 {
-            var textureName = "death\(i)"
-            var temp = runningLeftAtlas.textureNamed(textureName)
+            let textureName = "death\(i)"
+            let temp = runningLeftAtlas.textureNamed(textureName)
             deathAnimationTextures.append(temp)
         }
     }
@@ -734,7 +739,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     
     
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         for touch: AnyObject in touches {
             if gameOver == false {
@@ -812,7 +817,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     func checkCollisions(){
         let timeInterval:NSTimeInterval = 0.35
         var blackHitRainbows: [SKSpriteNode] = []
-        var heroContact = self.hero.frame
+        let heroContact = self.hero.frame
         enumerateChildNodesWithName(RainbowsType.Black.rawValue) { node, _ in
             let rainbow = node as! SKSpriteNode
             if CGRectIntersectsRect(rainbow.frame, heroContact) && rainbow.alpha >= 1 {
@@ -949,7 +954,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
                     
                     let lastRainbow:Rainbow = rainbows.first!
                     var min = lastRainbow.position.x + distance
-                    var max = width - distance
+                    let max = width - distance
                     
                     if(min > max || (min + distance > max)){
                         
@@ -1001,18 +1006,18 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
             current.append(p.used)
         }
         
-        println("the status of the FR is \(current)")
+        print("the status of the FR is \(current)")
         
         if freeSlots.count > 0 {
             
-            var random = Int(arc4random_uniform(UInt32(freeSlots.count)))
+            let random = Int(arc4random_uniform(UInt32(freeSlots.count)))
             freeSlots[random].used = true
             
             var slotters:[Float] = []
             for s in freeSlots{
                 slotters.append(s.x)
             }
-            println("\n the available positions are \(slotters) \n the random index is \(random)\n and the value is \(freeSlots[random].x) \n")
+            print("\n the available positions are \(slotters) \n the random index is \(random)\n and the value is \(freeSlots[random].x) \n")
             
             value = freeSlots[random]
             
@@ -1041,15 +1046,15 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
                     
                     rainbow.fadeOut(timeInterval)
                     rainbow.colliding = true
-                    if let index = find(availableSlots, rainbow.slot) {
+                    if let index = availableSlots.indexOf(rainbow.slot) {
                         
                         if availableSlots[index].used {
-                            println("I am searching for \(index)")
+                            print("I am searching for \(index)")
                             availableSlots[index].used = false
                             
                         }
                         
-                        if let rainbowIndex = find(rainbows, rainbow){
+                        if let rainbowIndex = rainbows.indexOf(rainbow){
                             rainbows.removeAtIndex(rainbowIndex)
                         }
                         

@@ -203,13 +203,18 @@ class MainMenu: SKScene {
     func playMusicLoop(filename: String) {
         let url = NSBundle.mainBundle().URLForResource(filename, withExtension: nil)
         if(url == nil) {
-            println("could not find file: \(filename)")
+            print("could not find file: \(filename)")
             return
         }
         var error: NSError? = nil
-        musicLoop = AVAudioPlayer(contentsOfURL: url, error: &error)
+        do {
+            musicLoop = try AVAudioPlayer(contentsOfURL: url!)
+        } catch let error1 as NSError {
+            error = error1
+            musicLoop = nil
+        }
         if musicLoop == nil {
-            println("Could not create audio player: \(error!)")
+            print("Could not create audio player: \(error!)")
             return
         }
         
@@ -248,20 +253,20 @@ class MainMenu: SKScene {
     
     
     func loadHelpButtonTextures() {
-        var buttonAtlas = SKTextureAtlas(named: "HelpButtonAnimation")
+        let buttonAtlas = SKTextureAtlas(named: "HelpButtonAnimation")
         
         for i in 1...1 {
-            var textureName = "helpButton\(i)"
-            var temp = buttonAtlas.textureNamed(textureName)
+            let textureName = "helpButton\(i)"
+            let temp = buttonAtlas.textureNamed(textureName)
             helpButtonTextures.append(temp)
         }
     }
     func loadHelpButtonTexturesIphone6Plus() {
-        var buttonAtlas = SKTextureAtlas(named: "HelpButtonAnimationIphone6Plus")                                         
+        let buttonAtlas = SKTextureAtlas(named: "HelpButtonAnimationIphone6Plus")                                         
         
         for i in 1...1 {
-            var textureName = "helpButt\(i)"
-            var temp = buttonAtlas.textureNamed(textureName)
+            let textureName = "helpButt\(i)"
+            let temp = buttonAtlas.textureNamed(textureName)
             helpButtonTexturesIphone6Plus.append(temp)
         }
     }
@@ -277,20 +282,20 @@ class MainMenu: SKScene {
     
     
     func loadHighscoreButtonTextures() {
-        var buttonAtlas = SKTextureAtlas(named: "HighscoreButtonAnimation")
+        let buttonAtlas = SKTextureAtlas(named: "HighscoreButtonAnimation")
         
         for i in 1...1 {
-            var textureName = "highscoreButton\(i)"
-            var temp = buttonAtlas.textureNamed(textureName)
+            let textureName = "highscoreButton\(i)"
+            let temp = buttonAtlas.textureNamed(textureName)
             highscoreButtonTextures.append(temp)
         }
     }
     func loadHighscoreButtonTexturesIphone6Plus() {
-        var buttonAtlas = SKTextureAtlas(named: "HighscoreButtonAnimationIphone6Plus")
+        let buttonAtlas = SKTextureAtlas(named: "HighscoreButtonAnimationIphone6Plus")
         
         for i in 1...1 {
-            var textureName = "highscoreButt\(i)"
-            var temp = buttonAtlas.textureNamed(textureName)
+            let textureName = "highscoreButt\(i)"
+            let temp = buttonAtlas.textureNamed(textureName)
             highscoreButtonTexturesIphone6Plus.append(temp)
         }
     }
@@ -307,20 +312,20 @@ class MainMenu: SKScene {
     
     
     func loadStartButtonTextures() {
-        var buttonAtlas = SKTextureAtlas(named: "StartbuttonAnimation")
+        let buttonAtlas = SKTextureAtlas(named: "StartbuttonAnimation")
         
         for i in 1...1 {
-            var textureName = "StartButton\(i)"
-            var temp = buttonAtlas.textureNamed(textureName)
+            let textureName = "StartButton\(i)"
+            let temp = buttonAtlas.textureNamed(textureName)
             startButtonTextures.append(temp)
         }
     }
     func loadStartButtonTexturesIphone6Plus() {
-        var buttonAtlas = SKTextureAtlas(named: "StartbuttonAnimationIphone6Plus")
+        let buttonAtlas = SKTextureAtlas(named: "StartbuttonAnimationIphone6Plus")
         
         for i in 1...1 {
-            var textureName = "StartButt\(i)"
-            var temp = buttonAtlas.textureNamed(textureName)
+            let textureName = "StartButt\(i)"
+            let temp = buttonAtlas.textureNamed(textureName)
             startButtonTexturesIphone6Plus.append(temp)
         }
     }
@@ -340,15 +345,15 @@ class MainMenu: SKScene {
         //check if user is signed in
         if GKLocalPlayer.localPlayer().authenticated {
             
-            var scoreReporter = GKScore(leaderboardIdentifier: "MoonWalkStudios1Leaderboard") //leaderboard id here
+            let scoreReporter = GKScore(leaderboardIdentifier: "MoonWalkStudios1Leaderboard") //leaderboard id here
             
             scoreReporter.value = Int64(highscoreshow) //score variable here (same as above)
             
-            var scoreArray: [GKScore] = [scoreReporter]
+            let scoreArray: [GKScore] = [scoreReporter]
             
-            GKScore.reportScores(scoreArray, withCompletionHandler: {(error : NSError!) -> Void in
+            GKScore.reportScores(scoreArray, withCompletionHandler: {(error : NSError?) -> Void in
                 if error != nil {
-                    println("error")
+                    print("error")
                 }
             })
             
@@ -360,7 +365,7 @@ class MainMenu: SKScene {
     func createAndLoadAd() -> GADInterstitial {
         interstitialAd = GADInterstitial(adUnitID: "ca-app-pub-3703288349171008/9065448778")
         
-        var request = GADRequest()
+        let request = GADRequest()
         
         request.testDevices = [kGADSimulatorID]
         interstitialAd!.loadRequest(request)
@@ -378,7 +383,7 @@ class MainMenu: SKScene {
     
     
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent){
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
         
         /* Called when a touch begins */
         
@@ -434,7 +439,7 @@ class MainMenu: SKScene {
         }
     }
     
-    override func  touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func  touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch: AnyObject in touches {
             let location = touch.locationInNode(self)
             if self.nodeAtPoint(location) == self.highscoreButton {
@@ -445,7 +450,7 @@ class MainMenu: SKScene {
             if self.nodeAtPoint(location) == self.startButton {
                 musicLoop.stop()
                 runAction(transitionSound)
-                var scene = InGameScene(size: self.size)
+                let scene = InGameScene(size: self.size)
                 let skView = self.view as SKView!
                 skView.ignoresSiblingOrder = true
                 scene.scaleMode = .AspectFill
@@ -456,7 +461,7 @@ class MainMenu: SKScene {
                
             } else {
                 if self.nodeAtPoint(location) == self.helpButton {
-                    var scene = HelpScene(size: self.size)
+                    let scene = HelpScene(size: self.size)
                     //musicLoop.stop()
                     let skView = self.view as SKView!
                     skView.ignoresSiblingOrder = true

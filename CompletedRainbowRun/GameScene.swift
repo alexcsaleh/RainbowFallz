@@ -32,7 +32,7 @@ class GameScene: SKScene {
     func updateCounter() {
         counter++
         if counter == 2 {
-            var scene = MainMenu(size: self.size)
+            let scene = MainMenu(size: self.size)
             let skView = self.view as SKView!
             skView.ignoresSiblingOrder = true
             scene.scaleMode = .AspectFill
