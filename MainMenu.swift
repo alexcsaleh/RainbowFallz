@@ -362,7 +362,7 @@ class MainMenu: SKScene {
     
     
    
-    func createAndLoadAd() -> GADInterstitial {
+    /*func createAndLoadAd() -> GADInterstitial {
         interstitialAd = GADInterstitial(adUnitID: "ca-app-pub-3703288349171008/9065448778")
         
         let request = GADRequest()
@@ -370,7 +370,7 @@ class MainMenu: SKScene {
         request.testDevices = [kGADSimulatorID]
         interstitialAd!.loadRequest(request)
         return interstitialAd!
-    }
+    }*/
     
    
     
